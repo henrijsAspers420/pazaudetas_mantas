@@ -1,0 +1,27 @@
+/* Pielāgota, skaista krāsa primārajām pogām */
+.btn-primary {
+    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%);
+}
+
+/* Interakcijas animācijas (Micro-interactions) */
+.card-hover:hover {
+    transform: translateY(-2px);
+}
+
+/* Lapas ielādes animācija */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Focus stāvokļi pieejamībai (Accessibility) */
+*:focus-visible {
+    outline: 2px solid #4F46E5;
+    outline-offset: 2px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skolas Nozaudētās Mantas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#4F46E5', // Indigo-600
+                        primaryHover: '#4338CA',
+                        surface: '#FFFFFF',
+                        background: '#F8FAFC', // Slate-50
+                        textMain: '#0F172A',
+                        textMuted: '#64748B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-textMain antialiased flex flex-col min-h-screen">
+    
+    <header class="bg-surface shadow-sm sticky top-0 z-50">
+        <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 focus:ring-2 focus:ring-primary outline-none rounded-md">
+                <span class="text-2xl font-bold text-primary">Atrasts!</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="/" class="nav-link font-medium hover:text-primary transition-colors">Visas mantas</a>
+                <a href="/add" class="nav-link font-medium hover:text-primary transition-colors">Pievienot atradumu</a>
+                <a href="/login" class="btn-primary px-4 py-2 rounded-lg font-medium text-white transition-transform duration-150">
+                    Ienākt
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-slate-100 focus:ring-2 focus:ring-primary" aria-label="Atvērt izvēlni">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 py-8 animate-fade-in">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
