@@ -39,14 +39,19 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="/" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Visas mantas</a>
                 <a href="/add" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Pievienot atradumu</a>
-                <a href="/login" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-all shadow-lg shadow-primary/30">
-                    Ienākt
-                </a>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-textMuted hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            <div id="mobile-menu" class="hidden md:hidden bg-surface/95 backdrop-blur-md border-b border-borderDark absolute w-full shadow-2xl">
+                    <div class="px-4 py-6 space-y-3 flex flex-col">
+                        <a href="/" class="block px-4 py-3.5 rounded-xl text-base font-medium text-textMain hover:bg-white/5 hover:text-primary transition-colors border border-transparent hover:border-borderDark">
+                            Visas mantas
+                        </a>
+                        <a href="/add" class="block px-4 py-3.5 rounded-xl text-base font-medium text-textMain hover:bg-white/5 hover:text-primary transition-colors border border-transparent hover:border-borderDark">
+                            Pievienot atradumu
+                        </a>
+                    </div>
+                </div>
+            </header>
         </nav>
     </header>
 
