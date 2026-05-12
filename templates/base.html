@@ -1,67 +1,74 @@
 <!DOCTYPE html>
-<html lang="lv" class="dark">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skolas Nozaudētās Mantas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        primary: '#06B6D4', // Cyan-500 (Izteiksmīga, moderna krāsa)
-                        primaryHover: '#0891B2', // Cyan-600
-                        surface: '#1E293B', // Slate-800 (Kartīšu fons)
-                        background: '#0F172A', // Slate-900 (Galvenais fons)
-                        textMain: '#F8FAFC', // Slate-50 (Gaišs teksts)
-                        textMuted: '#94A3B8', // Slate-400 (Pelēcīgs teksts)
-                        borderDark: '#334155' // Slate-700
-                    }
-                }
-            }
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #0f1117;
+            color: #e2e4ea;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-    </script>
-</head>
-<body class="bg-background text-textMain antialiased flex flex-col min-h-screen selection:bg-primary selection:text-white">
-    
-    <header class="bg-surface/80 backdrop-blur-md border-b border-borderDark sticky top-0 z-50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 group outline-none">
-                <svg class="w-8 h-8 text-primary transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <span class="text-2xl font-extrabold tracking-tight">Atrasts<span class="text-primary">.</span></span>
-            </a>
-            
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="/" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Visas mantas</a>
-                <a href="/add" class="text-sm font-medium text-textMuted hover:text-white transition-colors">Pievienot atradumu</a>
-            </div>
+        a { color: inherit; text-decoration: none; }
 
-            <div id="mobile-menu" class="hidden md:hidden bg-surface/95 backdrop-blur-md border-b border-borderDark absolute w-full shadow-2xl">
-                    <div class="px-4 py-6 space-y-3 flex flex-col">
-                        <a href="/" class="block px-4 py-3.5 rounded-xl text-base font-medium text-textMain hover:bg-white/5 hover:text-primary transition-colors border border-transparent hover:border-borderDark">
-                            Visas mantas
-                        </a>
-                        <a href="/add" class="block px-4 py-3.5 rounded-xl text-base font-medium text-textMain hover:bg-white/5 hover:text-primary transition-colors border border-transparent hover:border-borderDark">
-                            Pievienot atradumu
-                        </a>
-                    </div>
-                </div>
-            </header>
+        header {
+            background: #161820;
+            border-bottom: 1px solid #23263a;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #818cf8;
+            letter-spacing: -0.5px;
+        }
+        .btn-primary {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.15s;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">Atrasts!</a>
+            <a href="/add" class="btn-primary">+ Pievienot atradumu</a>
         </nav>
     </header>
 
-    <main class="flex-grow w-full animate-fade-in">
+    <main class="animate-fade-in">
         {% block content %}{% endblock %}
     </main>
-
-    <footer class="bg-surface border-t border-borderDark py-8 mt-12 text-center text-textMuted text-sm">
-        <p>&copy; 2026 Skolas Nozaudēto Mantu Sistēma. Izveidots kā programmēšanas projekts.</p>
-    </footer>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

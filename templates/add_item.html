@@ -1,41 +1,89 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto mt-12 mb-20 bg-surface p-6 md:p-10 rounded-3xl shadow-2xl border border-borderDark">
-    <h1 class="text-3xl font-extrabold mb-2">Pievienot atradumu</h1>
-    <p class="text-textMuted mb-8">Aizpildi informāciju, lai palīdzētu mantai atrast ceļu pie saimnieka.</p>
-    
-    <form action="/add" method="POST" enctype="multipart/form-data" class="space-y-6">
-        
-        <div>
-            <label class="block text-sm font-medium mb-2 text-textMuted">Fotoattēls (obligāts)</label>
-            <div id="drop-zone" class="border-2 border-dashed border-borderDark bg-background/50 rounded-2xl p-10 text-center hover:border-primary/50 transition-colors cursor-pointer group">
-                <input type="file" id="file-input" name="photo" class="hidden" accept="image/*" required>
-                <div id="preview-container" class="hidden">
-                    <img id="image-preview" src="" alt="Priekšskatījums" class="max-h-56 mx-auto rounded-xl shadow-lg border border-borderDark">
+<style>
+    .form-wrap {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #161820;
+        border: 1px solid #23263a;
+        border-radius: 16px;
+        padding: 32px;
+    }
+    .form-title { font-size: 20px; font-weight: 600; color: #f1f2f6; margin-bottom: 28px; }
+    .field { margin-bottom: 20px; }
+    label { display: block; font-size: 13px; font-weight: 500; color: #9496aa; margin-bottom: 8px; }
+    input[type="text"], textarea {
+        width: 100%;
+        background: #1c1f2e;
+        border: 1px solid #2a2d42;
+        border-radius: 10px;
+        color: #e2e4ea;
+        font-size: 14px;
+        font-family: 'DM Sans', sans-serif;
+        padding: 10px 14px;
+        outline: none;
+        transition: border-color 0.15s;
+    }
+    input[type="text"]:focus, textarea:focus { border-color: #4f46e5; }
+    input[type="text"]::placeholder, textarea::placeholder { color: #44475e; }
+    textarea { resize: none; }
+
+    .drop-zone {
+        border: 2px dashed #2a2d42;
+        border-radius: 12px;
+        padding: 36px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s;
+    }
+    .drop-zone:hover { border-color: #4f46e5; background: #1c1f2e; }
+    .drop-zone svg { color: #44475e; width: 40px; height: 40px; margin: 0 auto 12px; display: block; }
+    .drop-zone span { font-size: 13px; color: #6b6f88; }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 8px;
+        transition: background 0.15s;
+    }
+    #preview-container img { max-height: 180px; border-radius: 8px; margin: 0 auto; display: block; }
+</style>
+
+<div class="form-wrap">
+    <h1 class="form-title">Pievienot atrastu mantu</h1>
+
+    <form action="/add" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label>Foto (obligāts)</label>
+            <div class="drop-zone" id="drop-zone">
+                <input type="file" id="file-input" name="photo" class="hidden" accept="image/*" required style="display:none">
+                <div id="preview-container" style="display:none">
+                    <img id="image-preview" src="" alt="Priekšskatījums">
                 </div>
-                <div id="upload-placeholder" class="text-textMuted group-hover:text-primary transition-colors">
-                    <svg class="mx-auto h-12 w-12 mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span class="font-medium">Klikšķini, lai augšupielādētu bildi no telefona vai datora</span>
+                <div id="upload-placeholder">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                    </svg>
+                    <span>Klikšķini, lai augšupielādētu bildi</span>
                 </div>
             </div>
         </div>
 
-        <div>
-            <label for="title" class="block text-sm font-medium mb-2 text-textMuted">Kas tas ir?</label>
-            <input type="text" id="title" name="title" required placeholder="Piem., Zila ūdens pudele" 
-                   class="w-full px-5 py-3.5 bg-background border border-borderDark rounded-xl text-white placeholder-borderDark focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none transition-all">
+        <div class="field">
+            <label for="title">Īss nosaukums</label>
+            <input type="text" id="title" name="title" required placeholder="Piem., Zila ūdens pudele">
         </div>
 
-        <div>
-            <label for="description" class="block text-sm font-medium mb-2 text-textMuted">Kur atradi un kādas pazīmes?</label>
-            <textarea id="description" name="description" rows="4" required placeholder="Atrasts 2. stāva meiteņu tualetē. Pudelei ir skrāpējums apakšā..." 
-                      class="w-full px-5 py-3.5 bg-background border border-borderDark rounded-xl text-white placeholder-borderDark focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none transition-all resize-none"></textarea>
+        <div class="field">
+            <label for="description">Apraksts</label>
+            <textarea id="description" name="description" rows="4" required placeholder="Kur tika atrasts? Īpašas pazīmes..."></textarea>
         </div>
 
-        <button type="submit" class="btn-primary w-full py-4 mt-4 rounded-xl font-bold text-white text-lg transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 hover:shadow-primary/40">
-            Reģistrēt sistēmā
-        </button>
+        <button type="submit" class="btn-primary submit-btn">Pievienot sistēmā</button>
     </form>
 </div>
 {% endblock %}
