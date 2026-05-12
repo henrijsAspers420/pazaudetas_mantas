@@ -1,33 +1,118 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="space-y-8">
-    <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <h1 class="text-3xl font-bold">Nozaudēts un Atrasts</h1>
-        <div class="w-full sm:w-96 relative">
-            <input type="text" placeholder="Meklēt mantu (piem., atslēgas, jaka)..." 
-                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all shadow-sm">
-            <svg class="w-5 h-5 absolute left-3 top-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+<div class="relative bg-surface border-b border-borderDark overflow-hidden">
+    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary via-background to-background"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10 flex flex-col items-center text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+            Pazaudēji? <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Atrodi šeit.</span>
+        </h1>
+        <p class="text-lg text-textMuted max-w-2xl mb-8">
+            Pārstāj paļauties uz veiksmi un dežurantu. Apskati visas skolā atrastās lietas reāllaikā vai pievieno to, ko tikko atradi gaitenī.
+        </p>
+        
+        <div class="w-full max-w-xl relative">
+            <input type="text" placeholder="Meklēt atslēgas, jakas, austiņas..." 
+                   class="w-full pl-12 pr-4 py-4 bg-background border border-borderDark rounded-2xl text-white placeholder-textMuted focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all shadow-xl">
+            <svg class="w-6 h-6 absolute left-4 top-4 text-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
     </div>
+</div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <article class="bg-surface rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 card-hover">
-            <div class="h-48 bg-slate-200 w-full overflow-hidden">
-                <img src="https://via.placeholder.com/400x300" alt="Melnas atslēgas" class="w-full h-full object-cover">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold">Jaunākie atradumi</h2>
+        <span class="text-sm text-textMuted">Kopā atrastas 6 mantas</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        
+        <article class="bg-surface rounded-2xl border border-borderDark overflow-hidden shadow-lg hover:border-primary/50 transition-all duration-300 group">
+            <div class="h-52 w-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&w=600&q=80" alt="Melnas atslēgas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 right-3 bg-green-500/20 text-green-400 border border-green-500/30 text-xs px-2.5 py-1 rounded-full font-semibold backdrop-blur-sm">Pie dežuranta</div>
             </div>
-            <div class="p-4 space-y-2">
-                <div class="flex justify-between items-start">
-                    <h2 class="font-semibold text-lg line-clamp-1">Melnas atslēgas</h2>
-                    <span class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full font-medium">Atrasts</span>
-                </div>
-                <p class="text-sm text-textMuted line-clamp-2">Atrastas pie sporta zāles garderobes. Atslēgu saišķis ar sarkanu piekariņu.</p>
-                <div class="pt-4 flex justify-between items-center">
-                    <span class="text-xs text-slate-400">Pievienots: Šodien</span>
-                    <button class="text-sm font-semibold text-primary hover:text-primaryHover">Skatīt vairāk &rarr;</button>
+            <div class="p-5 space-y-3">
+                <h3 class="font-bold text-lg leading-tight">Melnas atslēgas ar piekariņu</h3>
+                <p class="text-sm text-textMuted line-clamp-2">Atrastas pie sporta zāles garderobes. Atslēgu saišķis ar sarkanu Nike piekariņu.</p>
+                <div class="pt-3 border-t border-borderDark flex justify-between items-center">
+                    <span class="text-xs text-textMuted">Šodien, 14:30</span>
+                    <button class="text-sm font-semibold text-primary group-hover:text-primaryHover transition-colors">Sīkāk &rarr;</button>
                 </div>
             </div>
         </article>
-        </div>
+
+        <article class="bg-surface rounded-2xl border border-borderDark overflow-hidden shadow-lg hover:border-primary/50 transition-all duration-300 group">
+            <div class="h-52 w-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1608228079968-c768170ce1ac?auto=format&fit=crop&w=600&q=80" alt="Apple AirPods" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 right-3 bg-primary/20 text-primary border border-primary/30 text-xs px-2.5 py-1 rounded-full font-semibold backdrop-blur-sm">Gaidām saimnieku</div>
+            </div>
+            <div class="p-5 space-y-3">
+                <h3 class="font-bold text-lg leading-tight">Apple AirPods Pro futlāris</h3>
+                <p class="text-sm text-textMuted line-clamp-2">Atrasts 3. stāva gaitenī pie bioloģijas kabineta. Iekšā ir tikai viena austiņa.</p>
+                <div class="pt-3 border-t border-borderDark flex justify-between items-center">
+                    <span class="text-xs text-textMuted">Šodien, 10:15</span>
+                    <button class="text-sm font-semibold text-primary group-hover:text-primaryHover transition-colors">Sīkāk &rarr;</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="bg-surface rounded-2xl border border-borderDark overflow-hidden shadow-lg hover:border-primary/50 transition-all duration-300 group">
+            <div class="h-52 w-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1606000000000-000000000000?auto=format&fit=crop&w=600&q=80" onerror="this.src='https://images.unsplash.com/photo-1556822278-df09623e162f?auto=format&fit=crop&w=600&q=80'" alt="Jaka" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 space-y-3">
+                <h3 class="font-bold text-lg leading-tight">Pelēka Nike jaka (M izmērs)</h3>
+                <p class="text-sm text-textMuted line-clamp-2">Aizmirsta ēdnīcā uz krēsla. Kabatā bija tukšs košļeņu iepakojums.</p>
+                <div class="pt-3 border-t border-borderDark flex justify-between items-center">
+                    <span class="text-xs text-textMuted">Vakar, 16:00</span>
+                    <button class="text-sm font-semibold text-primary group-hover:text-primaryHover transition-colors">Sīkāk &rarr;</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="bg-surface rounded-2xl border border-borderDark overflow-hidden shadow-lg hover:border-primary/50 transition-all duration-300 group">
+            <div class="h-52 w-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80" alt="Ūdens pudele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 space-y-3">
+                <h3 class="font-bold text-lg leading-tight">Stanley metāla pudele</h3>
+                <p class="text-sm text-textMuted line-clamp-2">Zila ūdens pudele ar uzlīmēm. Atrasta pie aktu zāles.</p>
+                <div class="pt-3 border-t border-borderDark flex justify-between items-center">
+                    <span class="text-xs text-textMuted">Pirms 2 dienām</span>
+                    <button class="text-sm font-semibold text-primary group-hover:text-primaryHover transition-colors">Sīkāk &rarr;</button>
+                </div>
+            </div>
+        </article>
+        
+        <article class="bg-surface rounded-2xl border border-borderDark overflow-hidden shadow-lg hover:border-primary/50 transition-all duration-300 group">
+            <div class="h-52 w-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Klade" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 space-y-3">
+                <h3 class="font-bold text-lg leading-tight">Matemātikas klade (10. klase)</h3>
+                <p class="text-sm text-textMuted line-clamp-2">Zaļa klade, bez vārda. Iekšā ir funkciju grafiki.</p>
+                <div class="pt-3 border-t border-borderDark flex justify-between items-center">
+                    <span class="text-xs text-textMuted">Pirms 3 dienām</span>
+                    <button class="text-sm font-semibold text-primary group-hover:text-primaryHover transition-colors">Sīkāk &rarr;</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="bg-surface rounded-2xl border border-borderDark overflow-hidden shadow-lg hover:border-primary/50 transition-all duration-300 group">
+            <div class="h-52 w-full overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=600&q=80" alt="Brilles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 space-y-3">
+                <h3 class="font-bold text-lg leading-tight">Redzes brilles</h3>
+                <p class="text-sm text-textMuted line-clamp-2">Melns plastmasas ietvars. Atrastas zēnu ģērbtuvēs.</p>
+                <div class="pt-3 border-t border-borderDark flex justify-between items-center">
+                    <span class="text-xs text-textMuted">Pirms 4 dienām</span>
+                    <button class="text-sm font-semibold text-primary group-hover:text-primaryHover transition-colors">Sīkāk &rarr;</button>
+                </div>
+            </div>
+        </article>
+
+    </div>
 </div>
 {% endblock %}

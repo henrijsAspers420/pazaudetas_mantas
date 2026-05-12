@@ -1,27 +1,52 @@
-/* Pielāgota, skaista krāsa primārajām pogām */
+/* Jaunās krāsas pielietojums un Glow effekts pogām */
 .btn-primary {
-    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+    background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
+    border: 1px solid rgba(6, 182, 212, 0.4);
 }
 .btn-primary:hover {
-    background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%);
+    background: linear-gradient(135deg, #0891B2 0%, #0E7490 100%);
 }
 
-/* Interakcijas animācijas (Micro-interactions) */
-.card-hover:hover {
-    transform: translateY(-2px);
+/* Teksta apgriešana (ja nosaukums/apraksts ir pārāk garš) */
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
 }
 
-/* Lapas ielādes animācija */
+/* Ielādes animācija */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in {
-    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Focus stāvokļi pieejamībai (Accessibility) */
+/* Uzlabota iezīmēšanas loģika pieejamībai (Accessibility) tumšajam režīmam */
 *:focus-visible {
-    outline: 2px solid #4F46E5;
+    outline: 2px solid #06B6D4;
     outline-offset: 2px;
+}
+
+/* Custom ritjosla (Scrollbar) tumšajam režīmam */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0F172A; 
+}
+::-webkit-scrollbar-thumb {
+    background: #334155; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #475569; 
 }

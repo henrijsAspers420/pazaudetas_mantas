@@ -1,39 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto bg-surface p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
-    <h1 class="text-2xl font-bold mb-6">Pievienot atrastu vai pazaudētu mantu</h1>
+<div class="max-w-2xl mx-auto mt-12 mb-20 bg-surface p-6 md:p-10 rounded-3xl shadow-2xl border border-borderDark">
+    <h1 class="text-3xl font-extrabold mb-2">Pievienot atradumu</h1>
+    <p class="text-textMuted mb-8">Aizpildi informāciju, lai palīdzētu mantai atrast ceļu pie saimnieka.</p>
     
     <form action="/add" method="POST" enctype="multipart/form-data" class="space-y-6">
         
         <div>
-            <label class="block text-sm font-medium mb-2">Pievienot foto (obligāts)</label>
-            <div id="drop-zone" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:bg-slate-50 transition-colors cursor-pointer group">
+            <label class="block text-sm font-medium mb-2 text-textMuted">Fotoattēls (obligāts)</label>
+            <div id="drop-zone" class="border-2 border-dashed border-borderDark bg-background/50 rounded-2xl p-10 text-center hover:border-primary/50 transition-colors cursor-pointer group">
                 <input type="file" id="file-input" name="photo" class="hidden" accept="image/*" required>
                 <div id="preview-container" class="hidden">
-                    <img id="image-preview" src="" alt="Priekšskatījums" class="max-h-48 mx-auto rounded-lg shadow-sm">
+                    <img id="image-preview" src="" alt="Priekšskatījums" class="max-h-56 mx-auto rounded-xl shadow-lg border border-borderDark">
                 </div>
-                <div id="upload-placeholder" class="text-slate-500 group-hover:text-primary transition-colors">
-                    <svg class="mx-auto h-12 w-12 mb-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                    <span class="font-medium text-sm">Klikšķini, lai augšupielādētu bildi</span>
+                <div id="upload-placeholder" class="text-textMuted group-hover:text-primary transition-colors">
+                    <svg class="mx-auto h-12 w-12 mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="font-medium">Klikšķini, lai augšupielādētu bildi no telefona vai datora</span>
                 </div>
             </div>
         </div>
 
         <div>
-            <label for="title" class="block text-sm font-medium mb-2">Īss nosaukums</label>
+            <label for="title" class="block text-sm font-medium mb-2 text-textMuted">Kas tas ir?</label>
             <input type="text" id="title" name="title" required placeholder="Piem., Zila ūdens pudele" 
-                   class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all">
+                   class="w-full px-5 py-3.5 bg-background border border-borderDark rounded-xl text-white placeholder-borderDark focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none transition-all">
         </div>
 
         <div>
-            <label for="description" class="block text-sm font-medium mb-2">Detalizēts apraksts</label>
-            <textarea id="description" name="description" rows="4" required placeholder="Kur tika atrasts? Īpašas pazīmes..." 
-                      class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"></textarea>
+            <label for="description" class="block text-sm font-medium mb-2 text-textMuted">Kur atradi un kādas pazīmes?</label>
+            <textarea id="description" name="description" rows="4" required placeholder="Atrasts 2. stāva meiteņu tualetē. Pudelei ir skrāpējums apakšā..." 
+                      class="w-full px-5 py-3.5 bg-background border border-borderDark rounded-xl text-white placeholder-borderDark focus:border-primary focus:ring-2 focus:ring-primary/30 outline-none transition-all resize-none"></textarea>
         </div>
 
-        <button type="submit" class="btn-primary w-full py-3 rounded-xl font-semibold text-white transition-all transform active:scale-95 shadow-md hover:shadow-lg">
-            Pievienot sistēmā
+        <button type="submit" class="btn-primary w-full py-4 mt-4 rounded-xl font-bold text-white text-lg transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20 hover:shadow-primary/40">
+            Reģistrēt sistēmā
         </button>
     </form>
 </div>
