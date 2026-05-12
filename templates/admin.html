@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Administratora Panelis</h1>
+    <a href="/" class="card-date" style="text-decoration: underline;">Atpakaļ uz katalogu</a>
+</div>
+
+<div class="admin-list" style="display: flex; flex-direction: column; gap: 12px;">
+    {% for item in items %}
+    <div class="card" style="display: flex; align-items: center; justify-content: space-between; padding: 15px; flex-direction: row;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="{{ url_for('static', filename='img/' + item['bilde_url']) }}" 
+                 style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+            <div>
+                <div class="card-title">{{ item['nosaukums'] }}</div>
+                <div class="card-date">{{ item['registracijas_laiks'][:10] }}</div>
+            </div>
+        </div>
+        
+        <form action="{{ url_for('delete_item', item_id=item['manta_id']) }}" method="POST">
+            <button type="submit" class="btn-primary" 
+                    style="background: #ef4444; padding: 8px 14px;" 
+                    onclick="return confirm('Vai tiešām manta ir atdota un vēlaties to noņemt?')">
+                Noņemt
+            </button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

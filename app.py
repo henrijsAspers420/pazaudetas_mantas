@@ -1,12 +1,13 @@
 import os
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
 
 app = Flask(__name__)
 DB_PATH = 'database.db'
-# Norāde uz jūsu esošo mapi
 UPLOAD_FOLDER = 'static/img'
+app.secret_key = 'super_slepena_parole_123'
+ADMIN_ACCESS_CODE = "OVG2026" # Šis ir kods, ko zinās tikai dežurants
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def get_db():
@@ -14,7 +15,7 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Inicializējam datubāzi pēc dokumentācijā norādītā ER modeļa
+# Inicializē datubāzi
 def init_db():
     with get_db() as db:
         db.executescript('''
@@ -32,7 +33,7 @@ def init_db():
                 FOREIGN KEY (statuss_id) REFERENCES Manta_Statuss (statuss_id)
             );
         ''')
-        # Pievienojam noklusējuma statusu, ja tabula ir tukša
+        # Noklusējuma statuss, ja tabula ir tukša
         if not db.execute('SELECT 1 FROM Manta_Statuss').fetchone():
             db.execute('INSERT INTO Manta_Statuss (statuss) VALUES (?)', ("Pie Dežuranta",))
         db.commit()
@@ -41,14 +42,24 @@ init_db()
 
 @app.route('/')
 def index():
+    query = request.args.get('q', '').strip()
     db = get_db()
-    # Atlasām mantas kopā ar to statusu no datubāzes
-    items = db.execute('''
-        SELECT M.*, S.statuss 
-        FROM Manta M 
-        JOIN Manta_Statuss S ON M.statuss_id = S.statuss_id 
-        ORDER BY registracijas_laiks DESC
-    ''').fetchall()
+    
+    if query:
+        # Meklē nosaukumā un aprakstā (izmantojot LIKE)
+        items = db.execute('''
+            SELECT M.*, S.statuss FROM Manta M 
+            JOIN Manta_Statuss S ON M.statuss_id = S.statuss_id 
+            WHERE M.nosaukums LIKE ? OR M.apraksts LIKE ?
+            ORDER BY registracijas_laiks DESC
+        ''', (f'%{query}%', f'%{query}%')).fetchall()
+    else:
+        items = db.execute('''
+            SELECT M.*, S.statuss FROM Manta M 
+            JOIN Manta_Statuss S ON M.statuss_id = S.statuss_id 
+            ORDER BY registracijas_laiks DESC
+        ''').fetchall()
+        
     return render_template('index.html', items=items)
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -59,7 +70,7 @@ def add_item():
         file = request.files['photo']
         
         if file and title and desc:
-            # Izveidojam unikālu faila nosaukumu
+            # Izveido unikālu faila nosaukumu
             filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}"
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             
@@ -73,5 +84,35 @@ def add_item():
             
     return render_template('add_item.html')
 
+@app.route('/admin')
+def admin_panel():
+    # Pārbaudām, vai lietotājs ir "autorizēts" sesijā
+    if not session.get('is_admin'):
+        return "Piekļuve liegta. Jums nav tiesību skatīt šo lapu.", 403
+    
+    db = get_db()
+    items = db.execute('''
+        SELECT M.*, S.statuss FROM Manta M 
+        JOIN Manta_Statuss S ON M.statuss_id = S.statuss_id 
+        ORDER BY registracijas_laiks DESC
+    ''').fetchall()
+    return render_template('admin.html', items=items)
+
+@app.route('/unlock/<string:code>')
+def unlock_admin(code):
+    if code == ADMIN_ACCESS_CODE:
+        session['is_admin'] = True
+        return redirect(url_for('admin_panel'))
+    return "Nepareizs kods.", 401
+
+@app.route('/delete/<int:item_id>', methods=['POST'])
+def delete_item(item_id):
+    if not session.get('is_admin'):
+        return "Forbidden", 403
+    
+    db = get_db()
+    db.execute('DELETE FROM Manta WHERE manta_id = ?', (item_id,))
+    db.commit()
+    return redirect(url_for('admin_panel'))
 if __name__ == '__main__':
     app.run(debug=True)

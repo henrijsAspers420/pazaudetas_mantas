@@ -1,27 +1,197 @@
-.btn-primary {
-    background: #4f46e5;
-    color: #fff;
-    border: none;
+/* Dizaina mainīgie vienotam stilam */
+:root {
+    --bg-deep: #0f1117;
+    --bg-card: #161820;
+    --bg-input: #1c1f2e;
+    --border: #23263a;
+    --border-light: #2a2d42;
+    --text-main: #e2e4ea;
+    --text-muted: #6b6f88;
+    --text-dim: #44475e;
+    --primary: #4f46e5;
+    --accent: #818cf8;
+}
+
+/* Vispārīgie stili */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+a { color: inherit; text-decoration: none; }
+
+/* Navigācija un Galvene */
+header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo { font-size: 20px; font-weight: 600; color: var(--accent); letter-spacing: -0.5px; }
+
+/* Galvenais saturs */
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+/* Saraksta režģis un kartītes */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+}
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
     cursor: pointer;
 }
-.btn-primary:hover {
-    background: #4338ca;
+.page-header {
+    margin-bottom: 40px; /* Pushes the grid down */
+    display: flex;       /* Ensures title and search stay aligned */
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
 }
 
-.card-hover:hover {
-    transform: translateY(-3px);
-    border-color: #383b56;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px; /* Space between cards horizontally and vertically */
+}
+.card:hover { transform: translateY(-3px); border-color: var(--border-light); }
+.card-img { height: 150px; background: var(--bg-input); overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+.card-body { padding: 12px 14px 14px; }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 6px; margin-bottom: 6px; }
+.card-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { background: #312e81; color: #a5b4fc; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
+.card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-date { font-size: 11px; color: var(--text-dim); margin-top: 10px; font-family: 'DM Mono', monospace; }
+
+/* Formu stili (add_item.html) */
+.form-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-    animation: fadeIn 0.35s ease forwards;
+/* add_item.html style blokā */
+#preview-container img {
+    max-width: 100%;      /* Neļauj bildei būt platākai par formu */
+    max-height: 300px;    /* Ierobežo maksimālo augstumu */
+    width: auto;
+    height: auto;
+    object-fit: contain;  /* Saglabā proporcijas, neizstiepjot bildi */
+    border-radius: 8px;
+    margin: 0 auto;
+    display: block;
 }
 
-*:focus-visible {
-    outline: 2px solid #818cf8;
-    outline-offset: 2px;
+/* Papildus, lai pati drop-zone zona nepaplašinātos nekontrolēti */
+.drop-zone {
+    overflow: hidden;     /* Paslēpj visu, kas iziet ārpus rāmja */
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.field { margin-bottom: 20px; }
+label { display: block; font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; }
+
+input[type="text"], textarea {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    color: var(--text-main);
+    font-size: 14px;
+    padding: 10px 14px;
+    outline: none;
+    font-family: inherit;
+}
+input[type="text"]:focus, textarea:focus { border-color: var(--primary); }
+
+/* Pievienošanas zonas (Drop Zone) */
+.drop-zone {
+    border: 2px dashed var(--border-light);
+    border-radius: 12px;
+    padding: 36px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.15s;
+}
+.drop-zone:hover { border-color: var(--primary); background: var(--bg-input); }
+.drop-zone svg { color: var(--text-dim); width: 40px; height: 40px; margin: 0 auto 12px; display: block; }
+
+/* Pogas */
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.btn-primary:hover { background: #4338ca; }
+.submit-btn { width: 100%; margin-top: 8px; }
+
+/* Meklēšana */
+.search-wrap { position: relative; }
+.search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--text-dim); pointer-events: none; }
+.search-input { padding-left: 34px !important; width: 260px; }
+
+/* Palīgu klases */
+.hidden { display: none !important; }
+
+.modal {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); 
+    z-index: 2000;
+    justify-content: center; align-items: center;
+    padding: 20px;
+}
+.modal-content {
+    background: #161820; /* Saskan ar card krāsu */
+    border: 1px solid #23263a;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 100%;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease;
+}
+#modal-img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    background: #000;
+    display: block;
 }
