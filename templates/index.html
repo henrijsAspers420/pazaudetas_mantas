@@ -75,18 +75,20 @@
 </div>
 
 <div class="grid">
+    {% for item in items %}
     <article class="card">
         <div class="card-img">
-            <img src="static/img/Item_001.webp" alt="Melnas atslēgas">
+            <img src="{{ url_for('static', filename='img/' + item['bilde_url']) }}" alt="{{ item['nosaukums'] }}">
         </div>
         <div class="card-body">
             <div class="card-top">
-                <span class="card-title">Melnas atslēgas</span>
-                <span class="badge">Pie Dežuranta</span>
+                <span class="card-title">{{ item['nosaukums'] }}</span>
+                <span class="badge">{{ item['statuss'] }}</span>
             </div>
-            <p class="card-desc">Atrastas pie sporta zāles garderobes. Atslēgu saišķis ar sarkanu piekariņu.</p>
-            <div class="card-date">šodien</div>
+            <p class="card-desc">{{ item['apraksts'] }}</p>
+            <div class="card-date">{{ item['registracijas_laiks'][:10] }}</div>
         </div>
     </article>
+    {% endfor %}
 </div>
 {% endblock %}
